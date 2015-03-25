@@ -37,3 +37,30 @@ a1维度是3，a2和a3维度都是4，a4定义错误，因为其维度至少是7
 std::cout << (std::vector<int>(vec1.begin(), vec1.end()) == vec2 ? "true" : "false")
               << std::endl;
 ```
+
+---
+## exercise 9.18
+一般人写这道题在输入的时候肯定跟我差不多
+```cpp
+	while (cin >> str)
+	{
+		input.push_back(str);
+	}
+```
+不过另外一种也可以，希望可以记住。
+```cpp
+for (string str; cin >> str; deque1.push_back(str));//这个写法也可以
+```
+---
+## exercise 9.20
+pezy的方法比较不错
+```cpp
+for (auto iter = l.cbegin(); iter != l.cend(); ++iter)
+        (*iter & 0x1 ? d_odd : d_even).push_back(*iter);
+```
+不过根据他的代码，我在简洁一点，如下：
+```cpp
+	for (const auto &c : list1)
+		(c & 0x1 ? deque1 : deque2).push_back(c);
+```
+这里不一定非要将1写成16进制，直接写1，运行结果依然正确，毕竟只是和最后一位相与。
