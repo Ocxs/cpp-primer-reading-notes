@@ -26,3 +26,14 @@ const char a4[6] = "123456";            //错误：没有空间存放空字符
 a1维度是3，a2和a3维度都是4，a4定义错误，因为其维度至少是7，需要额外的存放'\0'
 
 以上内容摘自 c++primer 第五版（中文版）
+
+---
+## exercise 9.16
+题目：
+> compare elements in a list<int> to a vector<int>.
+
+我自己写的是for循环比较，一看pezy的答案，觉得人家的技高一筹,此方法应该记住。还应该记住要经常使用`()? :`而不是使用`if else`.
+```cpp
+std::cout << (std::vector<int>(vec1.begin(), vec1.end()) == vec2 ? "true" : "false")
+              << std::endl;
+```
