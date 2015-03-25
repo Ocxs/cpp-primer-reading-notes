@@ -64,3 +64,18 @@ for (auto iter = l.cbegin(); iter != l.cend(); ++iter)
 		(c & 0x1 ? deque1 : deque2).push_back(c);
 ```
 这里不一定非要将1写成16进制，直接写1，运行结果依然正确，毕竟只是和最后一位相与。
+
+---
+## exercise 9.22
+> Assuming iv is a vector of ints, what is wrong with the following program? How might you correct the problem(s)?
+ ```cpp
+vector<int>::iterator iter = iv.begin(), mid = iv.begin() + iv.size()/2;
+while (iter != mid)
+    if (*iter == some_val)
+        iv.insert(iter, 2 * some_val);
+```
+
+这一题当时做的时候只考虑到了死循环，没考虑到mid会失效,中文版page315说了：
+> 向容器添加元素后，如果容器是vector或string，且存储空间被重新分配，则指向容器的迭代器，指针和引用都会失效。如果存储空间没有失效（capacity没有变）指向插入插入位置之前的元素的迭代器，指针和引用仍有效，但是指向插入位置后的元素的迭代器，指针和引用都会失效。
+
+这里插入元素的位置在mid之前，所以mid会失效。具体可以参见[这里](https://github.com/Ocxs/Cpp-Primer/tree/master/ch09)exercise 9.22
