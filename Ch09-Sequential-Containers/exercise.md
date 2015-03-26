@@ -79,3 +79,17 @@ while (iter != mid)
 > 向容器添加元素后，如果容器是vector或string，且存储空间被重新分配，则指向容器的迭代器，指针和引用都会失效。如果存储空间没有失效（capacity没有变）指向插入插入位置之前的元素的迭代器，指针和引用仍有效，但是指向插入位置后的元素的迭代器，指针和引用都会失效。
 
 这里插入元素的位置在mid之前，所以mid会失效。具体可以参见[这里](https://github.com/Ocxs/Cpp-Primer/tree/master/ch09)exercise 9.22
+
+---
+## exercise 9.28
+本题解法书上也有类似代码，但是书上中间有部分是这么写的
+```cpp
+prev = curr;
+++curr;
+```
+参考pezy的写法，可以将这一段更加精简
+```cpp
+prev = curr++;
+```
+
+---
