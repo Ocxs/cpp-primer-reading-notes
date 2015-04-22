@@ -93,3 +93,6 @@ prev = curr++;
 ```
 
 ---
+## exercise 9.52
+`auto buff = static_cast<char>(0);` 与 `auto buff = char(0);` 一样，只不过后者`char(0)`是c语言中的一种强制转换.
+另外本题答案也重新 改写，请参看[这里](https://github.com/pezy/CppPrimer/pull/31)
