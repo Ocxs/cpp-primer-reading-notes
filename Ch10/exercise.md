@@ -56,4 +56,73 @@ bool isLonger5(const string &s1)
 小细节问题。
 
 ---
-### 
+### exercise 10.23
+本题使用bind函数需要有几个注意的地方，举例说明
+```cpp
+bool check_size(const string &s, string::size_type sz)
+{
+	return s.size() >= sz;
+}
+
+
+auto check6 = bind(check_size,_1,6);
+```
+其中的`_1`是定义在一个名为`placeholders`的命名空间中，而这个命名空间本身定义在`std`中，所以我们要使用形如`_n`的名字，需要使用如下方法:
+```cpp
+1.using namespace std::placeholders;//可以只用_1,_2,_3····_n
+2.using std::placeholders::_1;	//只能使用_1
+```
+调用bind的一般形式为：
+`auto newCallable = bind(callable, arg_list);//形如_n的参数可能就在arg_list参数列表中`    
+上面举例的`check6`中的`_1`我们称之为占位符，`bind`调用只有一个**占位符**，表示`check6`只接受一个参数，`check_size`和`check6`都是可调用对象，调`用check6`的时候，`check6`会调用`check_size`,并传入`arg_list`中的参数。
+
+---
+### exercise 10.24
+另外一种解法
+```cpp
+bool ex10_22C(const string &s, string::size_type sz)
+{
+	return s.size() >= sz;
+}
+int main()
+{
+	vector<int> ivec{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	auto ex10_24 = bind(ex10_22C, _1, _2);
+	string str("C++");
+	int n = 0;
+	for (auto c : ivec)
+	{
+		if (!ex10_24(str,c))
+		{
+			n = c;
+			break;
+		}
+	}
+	cout << n << endl;
+	return 0;
+}
+```
+---
+### exercise 10.27
+pezy答案中方法更好，更简单。
+```cpp
+unique_copy(ivec.begin(), ivec.end(), back_inserter(ls));
+```
+查阅[资料](http://www.cplusplus.com/reference/algorithm/unique_copy/?kw=unique_copy)
+我们可以看到unique_copy返回的是拷贝不同元素的最后一个位置(An iterator pointing to the end of the copied range, which contains no consecutive duplicates.),cplusplus上的示例代码，可以看出返回值
+```cpp
+template <class InputIterator, class OutputIterator>
+  OutputIterator unique_copy (InputIterator first, InputIterator last,
+                              OutputIterator result)
+{
+  if (first==last) return result;
+
+  *result = *first;
+  while (++first != last) {
+    typename iterator_traits<InputIterator>::value_type val = *first;
+    if (!(*result == val))   // or: if (!pred(*result,val)) for version (2)
+      *(++result)=val;
+  }
+  return ++result;
+}
+```
