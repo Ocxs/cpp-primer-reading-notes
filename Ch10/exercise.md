@@ -126,3 +126,23 @@ template <class InputIterator, class OutputIterator>
   return ++result;
 }
 ```
+
+---
+### exercise 10.30
+这里有两种方法来构造ivec;如下：
+```cpp
+1.	vector<int> ivec(in_iter,eof);	//这两种方法都能行，这是从迭代器范围构造vec
+	
+2. 	while ( in_iter != eof)
+ 	{
+ 		ivec.push_back(*in_iter++);
+ 	}
+```
+
+--- 
+### exercise 10.31
+我的笨办法：新建一个`ivec2`作为`unique_copy`的存储容器，然后用使用流迭代器遍历`ivec2`的元素
+pezy的方法：直接来大招：`unique_copy(ivec.begin(), ivec.end(), ostream_iterator<int>(cout, " "));`
+
+---
+### exercise 
